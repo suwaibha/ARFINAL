@@ -135,8 +135,11 @@ const start = async () => {
       console.log(`Server running on http://localhost:${PORT}`)
     })
   } catch (error) {
-    console.error('MongoDB connection failed', error)
-    process.exit(1)
+    console.error('MongoDB connection failed, continuing without DB', error)
+    // Start the server even if MongoDB connection fails so frontend dev proxy doesn't get ECONNREFUSED.
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT} (DB disconnected)`)
+    })
   }
 }
 
