@@ -15,7 +15,12 @@ if (!MONGO_URI) {
 }
 
 const app = express()
-app.use(cors())
+app.use(cors({
+  origin: "https://arfinal-kohl.vercel.app",
+  credentials: true,
+}
+)
+)
 app.use(express.json({ limit: '12mb' }))
 
 const plotSchema = new mongoose.Schema({
